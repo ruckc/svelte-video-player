@@ -4,56 +4,59 @@
  * (c) Sindre Sorhus; MIT License
  */
 (function () {
-  'use strict';
+  "use strict";
 
-  var document = typeof window !== 'undefined' && typeof window.document !== 'undefined' ? window.document : {};
-  var isCommonjs = typeof module !== 'undefined' && module.exports;
+  var document =
+    typeof window !== "undefined" && typeof window.document !== "undefined"
+      ? window.document
+      : {};
+  var isCommonjs = typeof module !== "undefined" && module.exports;
 
   var fn = (function () {
     var val;
 
     var fnMap = [
       [
-        'requestFullscreen',
-        'exitFullscreen',
-        'fullscreenElement',
-        'fullscreenEnabled',
-        'fullscreenchange',
-        'fullscreenerror',
+        "requestFullscreen",
+        "exitFullscreen",
+        "fullscreenElement",
+        "fullscreenEnabled",
+        "fullscreenchange",
+        "fullscreenerror",
       ],
       // New WebKit
       [
-        'webkitRequestFullscreen',
-        'webkitExitFullscreen',
-        'webkitFullscreenElement',
-        'webkitFullscreenEnabled',
-        'webkitfullscreenchange',
-        'webkitfullscreenerror',
+        "webkitRequestFullscreen",
+        "webkitExitFullscreen",
+        "webkitFullscreenElement",
+        "webkitFullscreenEnabled",
+        "webkitfullscreenchange",
+        "webkitfullscreenerror",
       ],
       // Old WebKit
       [
-        'webkitRequestFullScreen',
-        'webkitCancelFullScreen',
-        'webkitCurrentFullScreenElement',
-        'webkitCancelFullScreen',
-        'webkitfullscreenchange',
-        'webkitfullscreenerror',
+        "webkitRequestFullScreen",
+        "webkitCancelFullScreen",
+        "webkitCurrentFullScreenElement",
+        "webkitCancelFullScreen",
+        "webkitfullscreenchange",
+        "webkitfullscreenerror",
       ],
       [
-        'mozRequestFullScreen',
-        'mozCancelFullScreen',
-        'mozFullScreenElement',
-        'mozFullScreenEnabled',
-        'mozfullscreenchange',
-        'mozfullscreenerror',
+        "mozRequestFullScreen",
+        "mozCancelFullScreen",
+        "mozFullScreenElement",
+        "mozFullScreenEnabled",
+        "mozfullscreenchange",
+        "mozfullscreenerror",
       ],
       [
-        'msRequestFullscreen',
-        'msExitFullscreen',
-        'msFullscreenElement',
-        'msFullscreenEnabled',
-        'MSFullscreenChange',
-        'MSFullscreenError',
+        "msRequestFullscreen",
+        "msExitFullscreen",
+        "msFullscreenElement",
+        "msFullscreenEnabled",
+        "MSFullscreenChange",
+        "MSFullscreenError",
       ],
     ];
 
@@ -84,11 +87,11 @@
       return new Promise(
         function (resolve, reject) {
           var onFullScreenEntered = function () {
-            this.off('change', onFullScreenEntered);
+            this.off("change", onFullScreenEntered);
             resolve();
           }.bind(this);
 
-          this.on('change', onFullScreenEntered);
+          this.on("change", onFullScreenEntered);
 
           element = element || document.documentElement;
 
@@ -109,11 +112,11 @@
           }
 
           var onFullScreenExit = function () {
-            this.off('change', onFullScreenExit);
+            this.off("change", onFullScreenExit);
             resolve();
           }.bind(this);
 
-          this.on('change', onFullScreenExit);
+          this.on("change", onFullScreenExit);
 
           var returnPromise = document[fn.exitFullscreen]();
 
@@ -127,10 +130,10 @@
       return this.isFullscreen ? this.exit() : this.request(element, options);
     },
     onchange(callback) {
-      this.on('change', callback);
+      this.on("change", callback);
     },
     onerror(callback) {
-      this.on('error', callback);
+      this.on("error", callback);
     },
     on(event, callback) {
       var eventName = eventNameMap[event];
@@ -151,7 +154,7 @@
     if (isCommonjs) {
       module.exports = { isEnabled: false };
     } else {
-      window.screenfull = { isEnabled: false };
+      if (typeof window !== "undefined") window.screenfull = { isEnabled: false };
     }
 
     return;
@@ -181,6 +184,6 @@
   if (isCommonjs) {
     module.exports = screenfull;
   } else {
-    window.screenfull = screenfull;
+    if (typeof window !== "undefined") window.screenfull = screenfull;
   }
 })();

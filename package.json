@@ -1,10 +1,13 @@
 {
-  "name": "svelte-video-player",
+  "name": "svelte-video-player-kit",
   "version": "1.2.5",
   "author": "Meigo Kukk",
-  "repository": "meigo/svelte-video-player",
-  "description": "Basic video player component for svelte apps.",
-  "homepage": "https://github.com/meigo/svelte-video-player",
+  "repository": {
+      "type": "git",
+      "url": "git+https://github.com/basaran/svelte-video-player-kit.git"
+  },
+  "description": "Basic video player component for svelte, SSR and sveltekit apps.",
+  "homepage": "https://github.com/basaran/svelte-video-player-kit",
   "license": "MIT",
   "svelte": "./src/index.js",
   "module": "./dist/index.mjs",
@@ -30,6 +33,8 @@
   },
   "keywords": [
     "svelte",
+    "sveltekit",
+    "ssr",
     "video",
     "player"
   ],

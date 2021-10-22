@@ -1,23 +1,11 @@
-<div align="center">
-  <img src="./svp_animated.svg" alt="svp" width="200" alt="SVP logo" />
-</div>
+# Svelte Video Player Kit
 
-<div align="center">
-  <a href="https://npmjs.org/package/svelte-video-player">
-    <img src="https://img.shields.io/npm/v/svelte-video-player?style=flat-square" alt="version" />
-  </a>
-  <a href="https://npmjs.org/package/svelte-video-player">
-    <img src="https://img.shields.io/npm/l/svelte-video-player?style=flat-square" alt="licence" />
-  </a>
-  <a href="https://npmjs.org/package/svelte-video-player">
-    <img src="https://img.shields.io/badge/dependencies-0-green?style=flat-square" alt="dependencies" />
-  </a>
-  <a href="https://npmjs.org/package/svelte-video-player">
-    <img src="https://img.shields.io/npm/types/typescript?style=flat-square" alt="typescript" />
-  </a>
-</div>
+This is a convenience fork of the original package which had some issues with SSR and sveltekit at the time this publishing. 
 
-# Svelte Video Player
+[https://github.com/meigo/svelte-video-player
+](https://github.com/meigo/svelte-video-player)
+
+All other credits go to the original author of the package.
 
 ## Basic video player component for svelte, sapper and legacy apps.
 
