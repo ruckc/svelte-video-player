@@ -1,3 +1,4 @@
+
 # Svelte Video Player Kit
 
 This is a convenience fork of the original package which had some issues with SSR and sveltekit at the time this publishing. 
@@ -6,6 +7,14 @@ This is a convenience fork of the original package which had some issues with SS
 ](https://github.com/meigo/svelte-video-player)
 
 All other credits go to the original author of the package.
+
+## Installation
+
+```bash
+pnpm install -D svelte-video-player-kit
+# OR
+npm install svelte-video-player-kit
+```
 
 ## Basic video player component for svelte, sapper and legacy apps.
 
@@ -18,14 +27,6 @@ Fullscreen functionality is disabled on iPhone, other than that should function 
 ## Demo
 
 https://svelte-video-player.netlify.app/
-
-## Installation
-
-```bash
-yarn add svelte-video-player
-# OR
-npm install svelte-video-player
-```
 
 ## Props
 
