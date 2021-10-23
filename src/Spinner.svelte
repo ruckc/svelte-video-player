@@ -6,6 +6,21 @@
   export let hidden = false;
 </script>
 
+{#if !hidden}
+  <div
+    class="spinner"
+    style="width:{size}; height:{size};"
+    in:fade={{ delay: 500, duration: 500 }}
+    out:fade={{ duration: 100 }}
+  >
+    <div class="circle bg" style="border-color:{color};" />
+    <div
+      class="circle rotating"
+      style="border-color:{color} {color} transparent transparent;"
+    />
+  </div>
+{/if}
+
 <style>
   .spinner {
     position: absolute;
@@ -41,16 +56,3 @@
     }
   }
 </style>
-
-{#if !hidden}
-  <div
-    class="spinner"
-    style="width:{size}; height:{size};"
-    in:fade={{ delay: 500, duration: 500 }}
-    out:fade={{ duration: 100 }}>
-    <div class="circle bg" style="border-color:{color};" />
-    <div
-      class="circle rotating"
-      style="border-color:{color} {color} transparent transparent;" />
-  </div>
-{/if}

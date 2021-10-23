@@ -8,6 +8,15 @@
   const cfg = getContext("config");
 </script>
 
+{#if !hidden}
+  <div
+    class="player-icon"
+    style="background-color:{$cfg.color}; border-color:{$cfg.focusColor};"
+  >
+    <PlayPauseIcon paused />
+  </div>
+{/if}
+
 <style>
   .player-icon {
     box-sizing: border-box;
@@ -19,12 +28,3 @@
     border-width: 2px;
   }
 </style>
-
-{#if !hidden}
-  <div
-    class="player-icon"
-    style="background-color:{$cfg.color}; border-color:{$cfg.focusColor};"
-    transition:fade={{ duration: 500 }}>
-    <PlayPauseIcon paused />
-  </div>
-{/if}
