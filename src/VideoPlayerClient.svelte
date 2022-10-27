@@ -31,7 +31,7 @@
   // PROPS
   //-------------------------------------------------------------------------------------------------------------------
 
-  export let autoPlay;
+  export let autoplay;
   export let width;
   export let height;
   export let poster;
@@ -134,8 +134,9 @@
 
   function onVideoLoadedData(e) {
     isVideoData = true;
-    if (autoPlay) {
+    if (autoplay) {
       paused = false;
+      videoElement?.play();
     }
   }
 
