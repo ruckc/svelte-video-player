@@ -134,10 +134,6 @@
 
   function onVideoLoadedData(e) {
     isVideoData = true;
-    if (autoplay) {
-      paused = false;
-      videoElement?.play();
-    }
   }
 
   function onVideoPlaying(e) {
@@ -309,6 +305,7 @@
         on:playing={onVideoPlaying}
         on:waiting={onVideoWaiting}
         preload="none">
+        {autoplay}
         <track kind="captions" />
         {#each _sources as { src, type }}
           <source {src} {type} />
