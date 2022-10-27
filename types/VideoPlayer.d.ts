@@ -3,6 +3,12 @@ import { SvelteComponentTyped } from 'svelte';
 
 export interface VideoPlayerProps {
   /**
+   * Wether the video should autoplay
+   * @default false
+   */
+  autoplay?: boolean;
+
+  /**
    * Real width of video for calculating aspect ratio for responsive design
    * @default 1920
    */
