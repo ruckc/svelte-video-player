@@ -1,13 +1,13 @@
 {
-  "name": "svelte-video-player-kit",
-  "version": "1.2.7",
+  "name": "@fullportdev/svelte-video-player-kit",
+  "version": "1.0.0",
   "author": "Meigo Kukk",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/basaran/svelte-video-player-kit.git"
+    "url": "git+https://github.com/FullPortDEV/svelte-video-player-kit.git"
   },
   "description": "Basic video player component for svelte, SSR and sveltekit apps.",
-  "homepage": "https://github.com/basaran/svelte-video-player-kit",
+  "homepage": "https://github.com/FullPortDEV/svelte-video-player-kit",
   "license": "MIT",
   "svelte": "./src/index.js",
   "module": "./dist/index.mjs",

@@ -1,6 +1,9 @@
+# FullPortDEV Fork of Svelte Video Player Kit
 
-# Svelte Video Player Kit
+## Reason for Fork
+the repo hadn't updated `$app/env` to `$app/environment` to reflect changes in SvelteKit
 
+## Overview
 This is a convenience fork of the original package which had some issues with SSR and sveltekit at the time this publishing. 
 
 [https://github.com/meigo/svelte-video-player
