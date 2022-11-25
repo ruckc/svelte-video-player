@@ -275,7 +275,7 @@
 
 <div
   class="aspect"
-  style="padding-top:{aspectRatio * 100}%; background-color:{playerBgColor}; border-radius:{borderRadius}">
+  style="background-color:{playerBgColor}; border-radius:{borderRadius}">
   {#await preloadImage(poster)}
     <div>
       <Spinner color={iconColor} size="60px" />
