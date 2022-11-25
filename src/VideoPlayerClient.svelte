@@ -31,6 +31,7 @@
   // PROPS
   //-------------------------------------------------------------------------------------------------------------------
 
+  export let autoplay;
   export let width;
   export let height;
   export let poster;
@@ -304,6 +305,7 @@
         on:playing={onVideoPlaying}
         on:waiting={onVideoWaiting}
         preload="none">
+        {autoplay}
         <track kind="captions" />
         {#each _sources as { src, type }}
           <source {src} {type} />

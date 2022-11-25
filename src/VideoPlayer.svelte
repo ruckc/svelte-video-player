@@ -8,6 +8,7 @@
   // PROPS
   //-------------------------------------------------------------------------------------------------------------------
 
+  export let autoplay = false;
   export let width = 1920;
   export let height = 1080;
   export let poster = '';
@@ -36,6 +37,7 @@
 
 {#if isClient}
   <VideoPlayerClient
+    {autoplay}
     {width}
     {height}
     {poster}
