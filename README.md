@@ -55,6 +55,7 @@ https://svelte-video-player.netlify.app/
 | loop            | <code>boolean</code>                | <code>false</code>     | Play video in loop                                                                                          |
 | controlsOnPause | <code>boolean</code>                | <code>true</code>      | Show control bar when video is paused                                                                       |
 | timeDisplay     | <code>boolean</code>                | <code>false</code>     | Display current time beside playbar                                                                         |
+| autoplay        | <code>boolean</code>                | <code>false</code>     | Autoplay video                                                                                              |
 
 ## Usage
 
