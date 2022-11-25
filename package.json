@@ -1,13 +1,13 @@
 {
-  "name": "@fullportdev/svelte-video-player-kit",
+  "name": "@ruckc/svelte-video-player-kit",
   "version": "1.0.0",
   "author": "Meigo Kukk",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/FullPortDEV/svelte-video-player-kit.git"
+    "url": "git+https://github.com/ruckc/svelte-video-player-kit.git"
   },
   "description": "Basic video player component for svelte, SSR and sveltekit apps.",
-  "homepage": "https://github.com/FullPortDEV/svelte-video-player-kit",
+  "homepage": "https://github.com/ruckc/svelte-video-player-kit",
   "license": "MIT",
   "svelte": "./src/index.js",
   "module": "./dist/index.mjs",
@@ -23,7 +23,7 @@
     "@rollup/plugin-node-resolve": "^13.0.4",
     "autoprefixer": "^10.3.1",
     "postcss": "^8.3.6",
-    "rollup": "^2.55.1",
+    "rollup": "^2",
     "rollup-plugin-css-only": "^3.1.0",
     "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-svelte": "^7.1.0",
