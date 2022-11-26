@@ -1,6 +1,6 @@
 <script>
-  import { browser } from "$app/environment";
-  import { onMount, onDestroy } from "svelte";
+  // import { browser } from "$app/environment";
+  import { onDestroy } from "svelte";
   import { screenfull } from "./libs/screenfull.js";
 
   export let element;
@@ -19,10 +19,10 @@
       isFullscreen ? screenfull.request(element) : screenfull.exit();
   }
 
-  onMount(() => {
-    if (browser && window.screenfull) {
-    }
-  });
+  // onMount(() => {
+  //   if (browser && window.screenfull) {
+  //   }
+  // });
 
   onDestroy(() => {
     screenfull.off("change", onChange);
