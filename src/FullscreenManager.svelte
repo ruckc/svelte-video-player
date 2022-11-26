@@ -1,30 +1,30 @@
 <script>
   // import { browser } from "$app/environment";
-  import { onDestroy } from "svelte";
-  import { screenfull } from "./libs/screenfull.js";
+  // import { onDestroy } from "svelte";
+  // import { screenfull } from "./libs/screenfull.js";
 
-  export let element;
-  export let isFullscreen;
+  // export let element;
+  // export let isFullscreen;
   export let isFullscreenEnabled;
 
-  isFullscreenEnabled = screenfull.isEnabled;
-  if (isFullscreenEnabled) screenfull.on("change", onChange);
+  isFullscreenEnabled = false;
+  // if (isFullscreenEnabled) screenfull.on("change", onChange);
 
-  function onChange(e) {
-    if (element == e.target) isFullscreen = screenfull.isFullscreen;
-  }
+  // function onChange(e) {
+  //   if (element == e.target) isFullscreen = screenfull.isFullscreen;
+  // }
 
-  $: {
-    if (isFullscreenEnabled)
-      isFullscreen ? screenfull.request(element) : screenfull.exit();
-  }
+  // $: {
+  //   if (isFullscreenEnabled)
+  //     isFullscreen ? screenfull.request(element) : screenfull.exit();
+  // }
 
   // onMount(() => {
   //   if (browser && window.screenfull) {
   //   }
   // });
 
-  onDestroy(() => {
-    screenfull.off("change", onChange);
-  });
+  // onDestroy(() => {
+  //   screenfull.off("change", onChange);
+  // });
 </script>

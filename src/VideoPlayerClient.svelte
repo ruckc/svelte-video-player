@@ -336,11 +336,7 @@
 
   <ScrollDetector bind:isScrolling />
 
-  <FullscreenManager
-    element={videoPlayerElement}
-    bind:isFullscreenEnabled
-    bind:isFullscreen
-  />
+  <FullscreenManager bind:isFullscreenEnabled />
 </div>
 
 <!--------------------------------------------------------------------------------------------------------------------
