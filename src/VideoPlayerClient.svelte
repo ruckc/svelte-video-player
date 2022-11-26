@@ -8,24 +8,24 @@
 </script>
 
 <script>
-  import { setContext } from 'svelte';
-  import { writable } from 'svelte/store';
-  import { uid, preloadImage, prepareVideoSources } from './utils.js';
+  import { setContext } from "svelte";
+  import { writable } from "svelte/store";
+  import { uid, preloadImage, prepareVideoSources } from "./utils.js";
 
-  import Poster from './Poster.svelte';
-  import Controls from './Controls.svelte';
-  import CenterIcons from './CenterIcons.svelte';
-  import BottomControls from './BottomControls.svelte';
-  import Playbar from './Playbar.svelte';
-  import PlayPauseButton from './PlayPauseButton.svelte';
-  import VolumeButton from './VolumeButton.svelte';
-  import VolumeControl from './VolumeControl.svelte';
-  import FullscreenButton from './FullscreenButton.svelte';
-  import FullscreenManager from './FullscreenManager.svelte';
-  import IdleDetector from './IdleDetector.svelte';
-  import ScrollDetector from './ScrollDetector.svelte';
-  import Spinner from './Spinner.svelte';
-  import Time from './Time.svelte';
+  import Poster from "./Poster.svelte";
+  import Controls from "./Controls.svelte";
+  import CenterIcons from "./CenterIcons.svelte";
+  import BottomControls from "./BottomControls.svelte";
+  import Playbar from "./Playbar.svelte";
+  import PlayPauseButton from "./PlayPauseButton.svelte";
+  import VolumeButton from "./VolumeButton.svelte";
+  import VolumeControl from "./VolumeControl.svelte";
+  import FullscreenButton from "./FullscreenButton.svelte";
+  import FullscreenManager from "./FullscreenManager.svelte";
+  import IdleDetector from "./IdleDetector.svelte";
+  import ScrollDetector from "./ScrollDetector.svelte";
+  import Spinner from "./Spinner.svelte";
+  import Time from "./Time.svelte";
 
   //-------------------------------------------------------------------------------------------------------------------
   // PROPS
@@ -62,7 +62,7 @@
   //-------------------------------------------------------------------------------------------------------------------
 
   const config = writable({});
-  setContext('config', config);
+  setContext("config", config);
 
   $: $config.controlsHeight = controlsHeight;
   $: $config.thumbSize = thumbSize;
@@ -122,7 +122,9 @@
 
   $: isPosterVisible = !isVideoData || (paused && currentTime == 0);
 
-  $: isBottomControlsVisible = isVideoData && ((paused && controlsOnPause) || (isPointerOverVideo && !isIdle));
+  $: isBottomControlsVisible =
+    isVideoData &&
+    ((paused && controlsOnPause) || (isPointerOverVideo && !isIdle));
 
   $: isSpinnerVisible = seeking || isBuffering;
 
@@ -165,7 +167,7 @@
   function onWindowKeyDown(e) {
     if (currentVideo !== videoElement) return;
     switch (e.code) {
-      case 'Tab':
+      case "Tab":
         if (isKeyDown) break; // Prevent long press
         if (!isBottomControlsVisible) {
           e.stopPropagation();
@@ -173,16 +175,16 @@
           isBottomControlsVisible = true;
         }
         break;
-      case 'Space':
+      case "Space":
         if (isKeyDown) break; // Prevent long press
         e.preventDefault(); // Prevent page scroll
         currentVideo.paused ? currentVideo.play() : currentVideo.pause();
         break;
-      case 'ArrowLeft':
+      case "ArrowLeft":
         e.preventDefault();
         timeJump(true);
         break;
-      case 'ArrowRight':
+      case "ArrowRight":
         e.preventDefault();
         timeJump();
         break;
@@ -198,8 +200,11 @@
   function timeJump(back) {
     const t = videoElement.currentTime;
     const d = videoElement.duration;
-    if (back) videoElement.currentTime = t > _skipSeconds ? t - _skipSeconds : 0;
-    else videoElement.currentTime = t + _skipSeconds < d ? t + _skipSeconds : d - 0.2;
+    if (back)
+      videoElement.currentTime = t > _skipSeconds ? t - _skipSeconds : 0;
+    else
+      videoElement.currentTime =
+        t + _skipSeconds < d ? t + _skipSeconds : d - 0.2;
   }
 
   //-------------------------------------------------------------------------------------------------------------------
@@ -230,6 +235,113 @@
     paused = !paused;
   }
 </script>
+
+<!--------------------------------------------------------------------------------------------------------------------
+ MARKUP
+ --------------------------------------------------------------------------------------------------------------------->
+
+<svelte:window on:keydown={onWindowKeyDown} on:keyup={onWindowKeyUp} />
+
+<div
+  class="aspect"
+  style="padding-top:{aspectRatio *
+    100}% background-color:{playerBgColor}; border-radius:{borderRadius}"
+>
+  {#await preloadImage(poster)}
+    <div>
+      <Spinner color={iconColor} size="60px" />
+    </div>
+  {:then}
+    <div
+      id="video-player-{uid()}"
+      tabindex={isVideoData ? "0" : "-1"}
+      bind:this={videoPlayerElement}
+      on:pointerover={onPlayerPointerOver}
+      on:pointerout={onPlayerPointerOut}
+      on:pointerup={onPlayerPointerUp}
+    >
+      <video
+        {width}
+        {height}
+        bind:this={videoElement}
+        bind:currentTime
+        bind:duration
+        bind:buffered
+        bind:seeking
+        bind:played
+        bind:ended
+        bind:paused
+        bind:volume
+        on:loadeddata|once={onVideoLoadedData}
+        on:play={onPlay}
+        on:playing={onVideoPlaying}
+        on:waiting={onVideoWaiting}
+        preload="none"
+      >
+        {autoplay}
+        <track kind="captions" />
+        {#each _sources as { src, type }}
+          <source {src} {type} />
+        {/each}
+        <p>Sorry, your browser doesn't support HTML5 videos.</p>
+      </video>
+
+      {#if poster && isPosterVisible}
+        <Poster src={poster} />
+      {/if}
+
+      <Controls>
+        <BottomControls
+          hidden={!isBottomControlsVisible}
+          bind:isPointerOver={isPointerOverControls}
+        >
+          <PlayPauseButton on:pointerup={onPlayPauseButtonPointerUp} {paused} />
+          <Playbar
+            {duration}
+            {buffered}
+            {played}
+            {isBottomControlsVisible}
+            bind:currentTime
+            bind:paused
+            bind:isScrubbing
+            on:pointerup={onPlaybarPointerUp}
+          />
+          {#if timeDisplay}
+            <Time {duration} {currentTime} />
+          {/if}
+          <VolumeButton on:pointerup={onVolumeButtonPointerUp} {muted} />
+          <VolumeControl bind:volume />
+          {#if isFullscreenEnabled}
+            <FullscreenButton
+              on:pointerup={onFullscreenButtonPointerUp}
+              {isFullscreen}
+            />
+          {/if}
+        </BottomControls>
+        <CenterIcons
+          isIconVisible={isCenterIconVisibile}
+          {isSpinnerVisible}
+          {isBuffering}
+          on:togglePause={togglePause}
+        />
+      </Controls>
+    </div>
+  {:catch error}
+    <p style="color:red;">{error}</p>
+  {/await}
+
+  <!-- <BufferingDetector {currentTime} {paused} bind:isBuffering /> -->
+
+  <IdleDetector bind:isIdle />
+
+  <ScrollDetector bind:isScrolling />
+
+  <FullscreenManager
+    element={videoPlayerElement}
+    bind:isFullscreenEnabled
+    bind:isFullscreen
+  />
+</div>
 
 <!--------------------------------------------------------------------------------------------------------------------
  STYLE
@@ -266,94 +378,3 @@
     height: 100%;
   }
 </style>
-
-<!--------------------------------------------------------------------------------------------------------------------
- MARKUP
- --------------------------------------------------------------------------------------------------------------------->
-
-<svelte:window on:keydown={onWindowKeyDown} on:keyup={onWindowKeyUp} />
-
-<div
-  class="aspect"
-  style="background-color:{playerBgColor}; border-radius:{borderRadius}">
-  {#await preloadImage(poster)}
-    <div>
-      <Spinner color={iconColor} size="60px" />
-    </div>
-  {:then}
-    <div
-      id="video-player-{uid()}"
-      tabindex={isVideoData ? '0' : '-1'}
-      bind:this={videoPlayerElement}
-      on:pointerover={onPlayerPointerOver}
-      on:pointerout={onPlayerPointerOut}
-      on:pointerup={onPlayerPointerUp}>
-      <video
-        {width}
-        {height}
-        bind:this={videoElement}
-        bind:currentTime
-        bind:duration
-        bind:buffered
-        bind:seeking
-        bind:played
-        bind:ended
-        bind:paused
-        bind:volume
-        on:loadeddata|once={onVideoLoadedData}
-        on:play={onPlay}
-        on:playing={onVideoPlaying}
-        on:waiting={onVideoWaiting}
-        preload="none">
-        {autoplay}
-        <track kind="captions" />
-        {#each _sources as { src, type }}
-          <source {src} {type} />
-        {/each}
-        <p>Sorry, your browser doesn't support HTML5 videos.</p>
-      </video>
-
-      {#if poster && isPosterVisible}
-        <Poster src={poster} />
-      {/if}
-
-      <Controls>
-        <BottomControls hidden={!isBottomControlsVisible} bind:isPointerOver={isPointerOverControls}>
-          <PlayPauseButton on:pointerup={onPlayPauseButtonPointerUp} {paused} />
-          <Playbar
-            {duration}
-            {buffered}
-            {played}
-            {isBottomControlsVisible}
-            bind:currentTime
-            bind:paused
-            bind:isScrubbing
-            on:pointerup={onPlaybarPointerUp} />
-          {#if timeDisplay}
-            <Time {duration} {currentTime} />
-          {/if}
-          <VolumeButton on:pointerup={onVolumeButtonPointerUp} {muted} />
-          <VolumeControl bind:volume />
-          {#if isFullscreenEnabled}
-            <FullscreenButton on:pointerup={onFullscreenButtonPointerUp} {isFullscreen} />
-          {/if}
-        </BottomControls>
-        <CenterIcons
-          isIconVisible={isCenterIconVisibile}
-          {isSpinnerVisible}
-          {isBuffering}
-          on:togglePause={togglePause} />
-      </Controls>
-    </div>
-  {:catch error}
-    <p style="color:red;">{error}</p>
-  {/await}
-
-  <!-- <BufferingDetector {currentTime} {paused} bind:isBuffering /> -->
-
-  <IdleDetector bind:isIdle />
-
-  <ScrollDetector bind:isScrolling />
-
-  <FullscreenManager element={videoPlayerElement} bind:isFullscreenEnabled bind:isFullscreen />
-</div>
