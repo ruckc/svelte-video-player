@@ -55,6 +55,28 @@
   }
 </script>
 
+<svelte:window on:pointermove={onPointerMove} on:pointerup={onPointerUp} />
+
+<div
+  class="slider"
+  style="max-width:{width}; margin:0 {marginX};"
+  bind:this={sliderElement}
+  on:pointerdown={onPointerDown}
+  on:keydown={onKeydown}
+  role="slider"
+  tabindex="0"
+  aria-valuenow={sliderElement}
+>
+  <div
+    class="bars"
+    style="height:{$cfg.trackHeight}; outline-color:{$cfg.focusColor};"
+  >
+    <Bar color={$cfg.barsBgColor} opacity={1} value={1} />
+    <Bar color={$cfg.color} opacity={1} {value} />
+  </div>
+  <Thumb positionValue={value} active={isPointerDown} />
+</div>
+
 <style>
   .slider {
     position: relative;
@@ -80,21 +102,3 @@
     overflow: hidden;
   }
 </style>
-
-<svelte:window on:pointermove={onPointerMove} on:pointerup={onPointerUp} />
-
-<div
-  class="slider"
-  style="max-width:{width}; margin:0 {marginX};"
-  tabindex="0"
-  bind:this={sliderElement}
-  on:pointerdown={onPointerDown}
-  on:keydown={onKeydown}>
-  <div
-    class="bars"
-    style="height:{$cfg.trackHeight}; outline-color:{$cfg.focusColor};">
-    <Bar color={$cfg.barsBgColor} opacity={1} value={1} />
-    <Bar color={$cfg.color} opacity={1} {value} />
-  </div>
-  <Thumb positionValue={value} active={isPointerDown} />
-</div>

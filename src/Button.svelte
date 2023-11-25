@@ -31,6 +31,21 @@
   }
 </script>
 
+<div
+  class="button"
+  style="width:{offsetHeight}px; min-width:{offsetHeight}px; background-color:{$cfg.color}; border-color:{$cfg.focusColor}; border-radius:{round
+    ? '9999px'
+    : '10px'};"
+  bind:offsetHeight
+  on:pointerdown={onPointerDown}
+  on:pointerup={onPointerUp}
+  on:keydown={onKeydown}
+  role="button"
+  tabindex="0"
+>
+  <slot />
+</div>
+
 <style>
   .button {
     box-sizing: border-box;
@@ -49,14 +64,3 @@
     }
   }
 </style>
-
-<div
-  class="button"
-  style="width:{offsetHeight}px; min-width:{offsetHeight}px; background-color:{$cfg.color}; border-color:{$cfg.focusColor}; border-radius:{round ? '9999px' : '10px'};"
-  tabindex="0"
-  bind:offsetHeight
-  on:pointerdown={onPointerDown}
-  on:pointerup={onPointerUp}
-  on:keydown={onKeydown}>
-  <slot />
-</div>

@@ -254,7 +254,6 @@
   {:then}
     <div
       id="video-player-{uid()}"
-      tabindex={isVideoData ? "0" : "-1"}
       bind:this={videoPlayerElement}
       on:pointerover={onPlayerPointerOver}
       on:pointerout={onPlayerPointerOut}

@@ -97,6 +97,30 @@
   }
 </script>
 
+<svelte:window on:pointermove={onPointerMove} on:pointerup={onPointerUp} />
+
+<div
+  class="playbar"
+  bind:this={playbarElement}
+  on:pointerdown={onPointerDown}
+  style="margin:0 {marginX};"
+>
+  <div
+    class="bars"
+    style="height:{$cfg.trackHeight}; outline-color:{$cfg.focusColor};"
+  >
+    <Bar color={$cfg.barsBgColor} opacity={1} value={1} />
+    <Bar color={$cfg.color} value={_currentTimePercentage} />
+    {#if $cfg.chunkBars}
+      <div class="chunkbars">
+        <Chunkbar color={$cfg.bufferedColor} opacity={1} ranges={_buffered} />
+        <Chunkbar color={$cfg.color} opacity={1} ranges={_played} />
+      </div>
+    {/if}
+  </div>
+  <Thumb positionValue={_currentTimePercentage} active={isPointerDown} />
+</div>
+
 <style>
   .playbar {
     position: relative;
@@ -130,26 +154,3 @@
     height: 30%;
   }
 </style>
-
-<svelte:window on:pointermove={onPointerMove} on:pointerup={onPointerUp} />
-
-<div
-  class="playbar"
-  tabindex="0"
-  bind:this={playbarElement}
-  on:pointerdown={onPointerDown}
-  style="margin:0 {marginX};">
-  <div
-    class="bars"
-    style="height:{$cfg.trackHeight}; outline-color:{$cfg.focusColor};">
-    <Bar color={$cfg.barsBgColor} opacity={1} value={1} />
-    <Bar color={$cfg.color} value={_currentTimePercentage} />
-    {#if $cfg.chunkBars}
-      <div class="chunkbars">
-        <Chunkbar color={$cfg.bufferedColor} opacity={1} ranges={_buffered} />
-        <Chunkbar color={$cfg.color} opacity={1} ranges={_played} />
-      </div>
-    {/if}
-  </div>
-  <Thumb positionValue={_currentTimePercentage} active={isPointerDown} />
-</div>
