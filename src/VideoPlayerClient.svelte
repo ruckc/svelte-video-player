@@ -100,8 +100,10 @@
 
   $: {
     if (ended) {
+      playing = false;
       currentTime = 0;
-      if (loop) videoElement.play();
+      
+      if (loop) play();
     }
   }
 
@@ -119,6 +121,7 @@
   let isScrolling = false;
   let isScrubbing = false;
   let isKeyDown = false;
+  let playing = false;
 
   $: isPosterVisible = !isVideoData || (paused && currentTime == 0);
 
@@ -178,7 +181,7 @@
       case "Space":
         if (isKeyDown) break; // Prevent long press
         e.preventDefault(); // Prevent page scroll
-        currentVideo.paused ? currentVideo.play() : currentVideo.pause();
+        currentVideo.paused ? play() : currentVideo.pause();
         break;
       case "ArrowLeft":
         e.preventDefault();
@@ -190,6 +193,17 @@
         break;
     }
     isKeyDown = true;
+  }
+
+  function play() {
+    if(currentVideo !== videoElement) return;
+    let playResponse = currentVideo.play();
+    playResponse.then(_ => {
+      playing = true;
+    }).catch(error => {
+      console.log(error);
+      playing = false;
+    }
   }
 
   function onWindowKeyUp(e) {
